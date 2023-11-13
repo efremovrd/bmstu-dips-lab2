@@ -44,7 +44,5 @@ services:
     depends_on:
       - postgres
 
-# TODO добавить сервисы
-
 volumes:
   db-data:
