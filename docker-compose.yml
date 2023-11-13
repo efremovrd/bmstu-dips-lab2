@@ -11,8 +11,38 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./postgres/:/docker-entrypoint-initdb.d/
+    # ports:
+    #   - "5432:5432"
+
+  gateway-service:
+    build:
+      context: ./
+      dockerfile: ./gateway-service/Dockerfile
+    depends_on:
+      - postgres
     ports:
-      - "5432:5432"
+      - "8080:8080"
+
+  loyalty-service:
+    build:
+      context: ./
+      dockerfile: ./loyalty-service/Dockerfile
+    depends_on:
+      - postgres
+
+  reservation-service:
+    build:
+      context: ./
+      dockerfile: ./reservation-service/Dockerfile
+    depends_on:
+      - postgres
+
+  payment-service:
+    build:
+      context: ./
+      dockerfile: ./payment-service/Dockerfile
+    depends_on:
+      - postgres
 
 # TODO добавить сервисы
 
