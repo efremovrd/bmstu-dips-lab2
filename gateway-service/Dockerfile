@@ -11,7 +11,7 @@ RUN export GOPATH=/app
 
 WORKDIR /app
 
-RUN go mod tidy
+# RUN go mod tidy
 
 RUN go mod download
 

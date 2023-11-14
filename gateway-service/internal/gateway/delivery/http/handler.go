@@ -22,7 +22,7 @@ const (
 
 type LoyaltyResponse struct {
 	Status            string `json:"status"`
-	Reservation_count int    `json:"reservation_count"`
+	Reservation_count int    `json:"reservationCount"`
 	Discount          int    `json:"discount"`
 }
 
@@ -31,17 +31,17 @@ type HotelResponse struct {
 	Price     int    `json:"price"`
 	Stars     int    `json:"stars"`
 	Name      string `json:"name"`
-	Hotel_uid string `json:"hotel_uid"`
+	Hotel_uid string `json:"hotelUid"`
 	City      string `json:"city"`
 	Address   string `json:"address"`
 	Country   string `json:"country"`
 }
 
 type HotelsResponse struct {
-	Items         []*HotelResponse `json:"items"`
-	TotalElements int              `json:"totalElements"`
 	Page          int              `json:"page"`
 	PageSize      int              `json:"pageSize"`
+	TotalElements int              `json:"totalElements"`
+	Items         []*HotelResponse `json:"items"`
 }
 
 type PostRequest struct {
@@ -73,23 +73,23 @@ type HotelFAResponse struct {
 	Stars       int    `json:"stars"`
 	FullAddress string `json:"fullAddress"`
 	Name        string `json:"name"`
-	Hotel_uid   string `json:"hotel_uid"`
+	Hotel_uid   string `json:"hotelUid"`
 }
 
 type GetReservationByUid struct {
 	Id              int              `json:"id"`
 	Hotel_id        int              `json:"hotel_id"`
-	Payment_uid     string           `json:"payment_uid"`
-	Reservation_uid string           `json:"reservation_uid"`
+	Payment_uid     string           `json:"paymentUid"`
+	Reservation_uid string           `json:"reservationUid"`
 	Username        string           `json:"username"`
 	Status          string           `json:"status"`
-	Start_date      string           `json:"start_date"`
-	End_data        string           `json:"end_data"`
+	Start_date      string           `json:"startDate"`
+	End_data        string           `json:"endDate"`
 	Hotel           *HotelFAResponse `json:"hotel"`
 }
 
 type GetOneReservation struct {
-	Reservation_uid string           `json:"reservation_uid"`
+	Reservation_uid string           `json:"reservationUid"`
 	Hotel           HotelFAResponse  `json:"hotel"`
 	Status          string           `json:"status"`
 	Start_date      string           `json:"startDate"`
@@ -332,7 +332,7 @@ func (g *GatewayHandlers) CreateReservation() gin.HandlerFunc {
 		payment_uid := temp[len(temp)-1]
 
 		// increment reservation count
-		incrementcounterjsonBody := []byte("{\"reservation_count\": 1}")
+		incrementcounterjsonBody := []byte("{\"reservationCount\": 1}")
 		incrementcounterbodyReader := bytes.NewReader(incrementcounterjsonBody)
 
 		incrementcounterurl := loylatyService + "/api/v1/loyalty"
@@ -369,7 +369,7 @@ func (g *GatewayHandlers) CreateReservation() gin.HandlerFunc {
 
 		// create reservation
 		createreservationjsonBody := []byte(fmt.Sprintf(
-			"{\"payment_uid\": \"%s\", \"status\": \"PAID\", \"hotel_id\": %d, \"start_date\": \"%s\", \"end_date\": \"%s\"}",
+			"{\"paymentUid\": \"%s\", \"status\": \"PAID\", \"hotel_id\": %d, \"startDate\": \"%s\", \"endDate\": \"%s\"}",
 			payment_uid, checkhotel.Id, ownrequest.Start_date, ownrequest.End_date))
 		createreservationbodyReader := bytes.NewReader(createreservationjsonBody)
 
@@ -498,7 +498,7 @@ func (g *GatewayHandlers) DeleteReservation() gin.HandlerFunc {
 		}
 
 		// decrement reservation count
-		decrementcounterjsonBody := []byte("{\"reservation_count\": -1}")
+		decrementcounterjsonBody := []byte("{\"reservationCount\": -1}")
 		decrementcounterbodyReader := bytes.NewReader(decrementcounterjsonBody)
 
 		decrementcounterurl := loylatyService + "/api/v1/loyalty"
@@ -605,8 +605,8 @@ func (g *GatewayHandlers) GetReservation() gin.HandlerFunc {
 			Reservation_uid: reservation_uid,
 			Hotel:           *reservation.Hotel,
 			Status:          reservation.Status,
-			Start_date:      reservation.Start_date,
-			End_data:        reservation.End_data,
+			Start_date:      (reservation.Start_date)[:10],
+			End_data:        (reservation.End_data)[:10],
 			Payment:         &payment,
 		})
 	}
@@ -689,8 +689,8 @@ func (g *GatewayHandlers) GetReservations() gin.HandlerFunc {
 				Reservation_uid: reservation.Reservation_uid,
 				Hotel:           *reservation.Hotel,
 				Status:          reservation.Status,
-				Start_date:      reservation.Start_date,
-				End_data:        reservation.End_data,
+				Start_date:      (reservation.Start_date)[:10],
+				End_data:        (reservation.End_data)[:10],
 				Payment:         &payment,
 			}
 		}
@@ -776,8 +776,8 @@ func (g *GatewayHandlers) GetUserInfo() gin.HandlerFunc {
 				Reservation_uid: reservation.Reservation_uid,
 				Hotel:           *reservation.Hotel,
 				Status:          reservation.Status,
-				Start_date:      reservation.Start_date,
-				End_data:        reservation.End_data,
+				Start_date:      (reservation.Start_date)[:10],
+				End_data:        (reservation.End_data)[:10],
 				Payment:         &payment,
 			}
 		}

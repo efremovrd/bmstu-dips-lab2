@@ -18,7 +18,7 @@ type HotelCreatRequest struct {
 	City      string `json:"city" binding:"required"`
 	Country   string `json:"country" binding:"required"`
 	Address   string `json:"address" binding:"required"`
-	Hotel_uid string `json:"hotel_uid"`
+	Hotel_uid string `json:"hotelUid"`
 }
 
 type HotelResponse struct {
@@ -26,7 +26,7 @@ type HotelResponse struct {
 	Price     int    `json:"price"`
 	Stars     int    `json:"stars"`
 	Name      string `json:"name"`
-	Hotel_uid string `json:"hotel_uid"`
+	Hotel_uid string `json:"hotelUid"`
 	City      string `json:"city"`
 	Address   string `json:"address"`
 	Country   string `json:"country"`

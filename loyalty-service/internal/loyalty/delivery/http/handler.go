@@ -15,14 +15,14 @@ type LoyaltyCreatRequest struct {
 }
 
 type LoyaltyUpdResCountByOneRequest struct {
-	Reservation_count *int `json:"reservation_count"`
+	Reservation_count *int `json:"reservationCount"`
 }
 
 type LoyaltyResponse struct {
 	Id                int    `json:"id"`
 	Username          string `json:"username"`
 	Status            string `json:"status"`
-	Reservation_count int    `json:"reservation_count"`
+	Reservation_count int    `json:"reservationCount"`
 	Discount          int    `json:"discount"`
 }
 

@@ -21,9 +21,9 @@ type PaymentUpdRequest struct {
 
 type PaymentResponse struct {
 	Id          int    `json:"id"`
-	Price       int    `json:"name"`
+	Price       int    `json:"price"`
 	Status      string `json:"status"`
-	Payment_uid string `json:"payment_uid"`
+	Payment_uid string `json:"paymentUid"`
 }
 
 type PaymentHandlers struct {

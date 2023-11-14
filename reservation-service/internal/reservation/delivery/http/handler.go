@@ -11,29 +11,29 @@ import (
 )
 
 type ReservationCreatRequest struct {
-	Payment_uid string `json:"payment_uid" binding:"required"`
+	Payment_uid string `json:"paymentUid" binding:"required"`
 	Status      string `json:"status" binding:"required"`
 	Hotel_id    int    `json:"hotel_id" binding:"required"`
-	Start_date  string `json:"start_date" binding:"required"`
-	End_data    string `json:"end_date" binding:"required"`
+	Start_date  string `json:"startDate" binding:"required"`
+	End_data    string `json:"endDate" binding:"required"`
 }
 
 type HotelResponse struct {
 	Stars       int    `json:"stars"`
 	FullAddress string `json:"fullAddress"`
 	Name        string `json:"name"`
-	Hotel_uid   string `json:"hotel_uid"`
+	Hotel_uid   string `json:"hotelUid"`
 }
 
 type ReservationResponse struct {
 	Id              int           `json:"id"`
 	Hotel_id        int           `json:"hotel_id"`
-	Payment_uid     string        `json:"payment_uid"`
-	Reservation_uid string        `json:"reservation_uid"`
+	Payment_uid     string        `json:"paymentUid"`
+	Reservation_uid string        `json:"reservationUid"`
 	Username        string        `json:"username"`
 	Status          string        `json:"status"`
-	Start_date      string        `json:"start_date"`
-	End_data        string        `json:"end_data"`
+	Start_date      string        `json:"startDate"`
+	End_data        string        `json:"endDate"`
 	Hotel           HotelResponse `json:"hotel"`
 }
 
